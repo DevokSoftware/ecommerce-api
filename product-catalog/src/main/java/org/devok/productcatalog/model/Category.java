@@ -1,24 +1,20 @@
 package org.devok.productcatalog.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "PRODUCTS")
-public class Product {
+@Table(name = "PRODUCT_CATEGORIES")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "category")
     private Set<ProductCategory> productCategories;
     private String description;
-    private String manufacturer;
     private byte[] image;
-    private BigDecimal price;
-    private int stock;
     @Column(name = "CREATED_DATE")
     private OffsetDateTime createdDate;
     @Column(name = "LAST_UPDATE_DATE")
@@ -56,36 +52,12 @@ public class Product {
         this.description = description;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
     public byte[] getImage() {
         return image;
     }
 
     public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public OffsetDateTime getCreatedDate() {
