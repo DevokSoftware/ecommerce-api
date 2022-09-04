@@ -18,7 +18,8 @@ public class Product {
     private String manufacturer;
     private byte[] image;
     private BigDecimal price;
-    private int stock;
+    private Integer stock;
+    private Boolean visible;
     @Column(name = "CREATED_DATE")
     private OffsetDateTime createdDate;
     @Column(name = "LAST_UPDATE_DATE")
@@ -80,11 +81,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -102,5 +103,41 @@ public class Product {
 
     public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
+    public Product update(Product updateProduct){
+        if(updateProduct.getVisible() != null){
+            this.visible = updateProduct.getVisible();
+        }
+        if(updateProduct.getProductCategories() != null){
+            this.productCategories = updateProduct.getProductCategories();
+        }
+        if(updateProduct.getDescription() != null){
+            this.description = updateProduct.getDescription();
+        }
+        if(updateProduct.getImage() != null){
+            this.image = updateProduct.getImage();
+        }
+        if(updateProduct.getManufacturer() != null){
+            this.manufacturer = updateProduct.getManufacturer();
+        }
+        if(updateProduct.getName() != null){
+            this.name = updateProduct.getName();
+        }
+        if(updateProduct.getPrice() != null){
+            this.price = updateProduct.getPrice();
+        }
+        if(updateProduct.getStock() != null){
+            this.stock = updateProduct.getStock();
+        }
+        return this;
     }
 }
