@@ -22,16 +22,20 @@ public interface ProductMapper {
 
     default Set<ProductCategory> mapProductCategoriesToEntity(Long productId, Set<CategoryDTO> productCategoriesDTO) {
         Set<ProductCategory> productCategories = new HashSet<>();
-        for (CategoryDTO categoryDTO : productCategoriesDTO) {
-            productCategories.add(new ProductCategory(new ProductCategoryKey(productId, categoryDTO.getId())));
+        if (productCategoriesDTO != null) {
+            for (CategoryDTO categoryDTO : productCategoriesDTO) {
+                productCategories.add(new ProductCategory(new ProductCategoryKey(productId, categoryDTO.getId())));
+            }
         }
         return productCategories;
     }
 
     default Set<CategoryDTO> mapProductCategoriesToDto(Set<ProductCategory> productCategories) {
         Set<CategoryDTO> categoryDTOs = new HashSet<>();
-        for (ProductCategory productCategory :  productCategories) {
-            categoryDTOs.add(CategoryDTO.builder().id(productCategory.getId().getCategory()).build());
+        if (productCategories != null) {
+            for (ProductCategory productCategory : productCategories) {
+                categoryDTOs.add(CategoryDTO.builder().id(productCategory.getId().getCategory()).build());
+            }
         }
         return categoryDTOs;
     }

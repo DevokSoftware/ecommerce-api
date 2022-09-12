@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.devok.productcatalog.dto.ProductDTO;
 import org.devok.productcatalog.service.ProductCatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.core.Response;
 
 @Slf4j
 @RestController
@@ -20,23 +20,24 @@ public class AdminProductCatalogController {
     }
 
     @PostMapping
-    public Response createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         log.debug("Creating product: {}", productDTO);
         ProductDTO createdProduct = productCatalogService.createProduct(productDTO);
-        return Response.status(Response.Status.CREATED).entity(createdProduct).build();
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/{productId}")
-    public Response updateProduct(@PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO) {
         log.debug("Updating product with id {}: {}", productId, productDTO);
         ProductDTO updatedProduct = productCatalogService.updateProduct(productId, productDTO);
-        return Response.status(Response.Status.OK).entity(updatedProduct).build();
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{productId}")
-    public Response deleteProduct(@PathVariable("productId") Long productId) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProduct(@PathVariable("productId") Long productId) {
         log.debug("Deleting product with id {}.", productId);
         productCatalogService.deleteProduct(productId);
-        return Response.status(Response.Status.OK).build();
     }
 }

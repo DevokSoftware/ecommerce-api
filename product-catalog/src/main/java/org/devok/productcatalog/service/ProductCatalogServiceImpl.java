@@ -1,11 +1,12 @@
 package org.devok.productcatalog.service;
 
+import lombok.RequiredArgsConstructor;
 import org.devok.productcatalog.dto.ProductDTO;
 import org.devok.productcatalog.mapper.ProductMapper;
 import org.devok.productcatalog.model.Product;
 import org.devok.productcatalog.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +14,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class ProductCatalogServiceImpl implements ProductCatalogService {
 
-    @Autowired
-    private ProductMapper productMapper;
-
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductMapper productMapper;
+    private final ProductRepository productRepository;
 
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = productMapper.mapToProduct(productDTO);
@@ -29,7 +29,7 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     @Override
     public Set<ProductDTO> getAllProducts() {
         List<Product> productList = productRepository.findAll();
-        return productList.stream().map(x -> productMapper.mapToProductDTO(x)).collect(Collectors.toSet());
+         return productList.stream().map(x -> productMapper.mapToProductDTO(x)).collect(Collectors.toSet());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     private Product fetchProductById(Long productId) {
         Optional<Product> product = productRepository.findById(productId);
         if (!product.isPresent()) {
-            //TODO Custom Expeptiom
+            //TODO Custom Exception
             throw new RuntimeException();
         }
         return product.get();

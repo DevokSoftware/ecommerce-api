@@ -22,8 +22,6 @@ public class Product {
     private Boolean visible;
     @Column(name = "CREATED_DATE")
     private OffsetDateTime createdDate;
-    @Column(name = "LAST_UPDATE_DATE")
-    private OffsetDateTime lastUpdateDate;
 
     public Long getId() {
         return id;
@@ -95,14 +93,6 @@ public class Product {
 
     public void setCreatedDate(OffsetDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public OffsetDateTime getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
     }
 
     public Boolean getVisible() {
