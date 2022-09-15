@@ -1,20 +1,22 @@
-package org.devok.eurekaserver;
+package org.devok.productcatalog;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-@EnableEurekaServer
-public class EurekaServerApplication extends SpringBootServletInitializer {
+@EnableEurekaClient
+@EnableEncryptableProperties
+public class ProductServerApplication extends SpringBootServletInitializer {
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(EurekaServerApplication.class);
+        return application.sources(ProductServerApplication.class);
     }
     public static void main(String[] args) {
-        SpringApplication.run(EurekaServerApplication.class, args);
+        SpringApplication.run(ProductServerApplication.class, args);
     }
 }
